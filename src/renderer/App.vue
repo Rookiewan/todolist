@@ -1,15 +1,27 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <sidebar></sidebar>
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'todolist'
+import Sidebar from '@components/Sidebar'
+export default {
+  name: 'todolist',
+  components: {
+    Sidebar
   }
+}
 </script>
 
-<style>
-  /* CSS */
+<style lang="scss">
+#app {
+  display: flex;
+  .main {
+    flex: 1;
+  }
+}
 </style>
