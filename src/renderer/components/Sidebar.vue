@@ -4,6 +4,7 @@
 
 <style lang="scss">
 .sidebar-com {
-  width: 30%;
+  width: 15%;
+  border-right: 1px solid #ccc;
 }
 </style>
