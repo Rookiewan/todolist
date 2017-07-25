@@ -1,7 +1,7 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
-// import lowdb from 'lowdb'
+import lowdb from 'lowdb'
 import path from 'path'
 
 /**
@@ -12,11 +12,11 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = path.join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-// const db = lowdb(path.join(global.__static, '/db.json'))
+const db = lowdb(path.join(global.__static, '/db.json'))
 
-// db.defaults({
-//   list: []
-// })
+db.defaults({
+  list: []
+})
 
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
