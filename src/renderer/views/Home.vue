@@ -2,31 +2,13 @@
   <div class="home-view">
     <div class="container">
       <ul class="list">
-        <li>
+        <li v-for="(item, idx) in todolist" :key="idx">
           <div class="item">
             <div class="status">
               <i class="iconfont icon-circle"></i>
             </div>
             <div class="input">
-              <input type="text" value="第一件事">
-            </div>
-            <div class="options">
-              <button class="btn btn-update">
-                <i class="iconfont icon-update"></i>
-              </button>
-              <button class="btn btn-delete">
-                <i class="iconfont icon-delete"></i>
-              </button>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item">
-            <div class="status">
-              <i class="iconfont icon-circle"></i>
-            </div>
-            <div class="input">
-              <input type="text" value="第一件事">
+              <input type="text" v-model="item.text">
             </div>
             <div class="options">
               <button class="btn btn-update">
@@ -41,13 +23,48 @@
       </ul>
       <div class="add-item">
         <div class="input">
-          <input type="text" placeholder="Enter thing...">
+          <input type="text" v-model="newItem.text" placeholder="Enter thing...">
         </div>
-        <button class="btn btn-add"><i class="iconfont icon-add"></i></button>
+        <button class="btn btn-add" @click="onHandlerAddItem"><i class="iconfont icon-add"></i></button>
       </div>
     </div>
   </div>
 </template>
+<script>
+import {
+  mapActions,
+  mapState
+} from 'vuex'
+export default {
+  data () {
+    return {
+      newItem: {
+        text: '',
+        done: false
+      }
+    }
+  },
+  created () {
+    this.getTodolist()
+  },
+  computed: {
+    ...mapState({
+      todolist: state => state.Todolist.list,
+      user: state => state.Todolist.user
+    })
+  },
+  methods: {
+    onHandlerAddItem () {
+      this.addItem(Object.assign({}, this.newItem))
+      this.newItem.text = ''
+    },
+    ...mapActions([
+      'getTodolist',
+      'addItem'
+    ])
+  }
+}
+</script>
 <style lang="scss">
 .home-view {
   height: 100%;
